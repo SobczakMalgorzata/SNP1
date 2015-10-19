@@ -1,0 +1,75 @@
+﻿<Window x:Class="SNP1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SNP1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" MinHeight="350" MinWidth="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Ucz się" Click="getLearningSet" />
+            <MenuItem Header="Testuj" />
+            <MenuItem Header="Klasyfikacja" Name="menuItemClassiffication" IsEnabled="False" Click="chooseClassiffication" />
+            <MenuItem Header="Regresja" Name="menuItemRegresion" Click="chooseRegresion" />
+            
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Liczba warstw:"/>
+                    <TextBox Grid.Column="1" Name="numberOfLayers" Text="3"/>
+                </Grid>
+                <RadioButton Grid.Row="1" x:Name="Aktywacja_Unipolarna" Content="Aktywacja Unipolarna" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton Grid.Row="2" x:Name="Aktywacja_Bipolarna" Content="Aktywacja Bipolarna" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <CheckBox Grid.Row="3" Name="biasBool" Content="Obecność biasu"/>
+                <CheckBox Grid.Row="4" Name="equalNumberOfNeuronsInLayer" IsChecked="True" IsEnabled="False" Content="Równa ilość neuronów w warstwie"/>
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Liczba neuronów w warstwie (bez biasu):"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="numberOfNeurons" Text="3"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Liczba iteracji:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="300"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Wartość współczynnika nauki:"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="3"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Wartość współczynnika bezwładności:"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="3"/>
+                </Grid>
+            </Grid>
+            <TabControl Grid.Column="1">
+                <TabItem Name="plot0" Header="Błąd sieci"/>
+                <TabItem Name="plot1" Header="Podział przestrzeni na klasy"/>
+                <TabItem Name="plot2" Header="Wartości funkcji"/>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
