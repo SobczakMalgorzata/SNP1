@@ -29,6 +29,7 @@ namespace SNP1
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +61,7 @@ namespace SNP1
             network.Reset();
         }
 
-        private void networkGenerate()
+        private void networkGenerate(int input, int output)
         {
             if (equalNumberOfNeuronsInLayer.IsChecked == true)
             {
@@ -68,15 +69,15 @@ namespace SNP1
                 if (Int32.TryParse(numberOfNeurons.Text, out n) && Int32.TryParse(numberOfLayers.Text, out l))
                 {
                     BasicNetwork network = new BasicNetwork();
-                    network.AddLayer(new BasicLayer(null, true, 2));
+                    network.AddLayer(new BasicLayer(null, true, input));
                     for (int i = 0; i < (l - 2); i++)
                     {
                         if (biasBool.IsChecked == true)
                             network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, n));
                         else
-                            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, n));
+                            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, n + 1));
                     }
-                    network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
+                    network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, output));
                     network.Structure.FinalizeStructure();
                     network.Reset();
                 }
@@ -87,7 +88,7 @@ namespace SNP1
         private void getLearningSet(object sender, RoutedEventArgs e)
         {
             string filename1, filename2;
-            var analyst;
+            var analyst = new EncogAnalyst();
 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             
@@ -106,10 +107,13 @@ namespace SNP1
                 filename2 = System.IO.Path.ChangeExtension(filename1, "ega");
                 dataNormalization(filename1, filename2);
 
-                analyst = new EncogAnalyst();
-                analyst.Load(new FileInfo(filename2));
+                analyst.Load(new FileInfo("stats.ega"));
 
-                networkGenerate();
+                int input = analyst.DetermineUniqueInputFieldCount();
+                int output = analyst.DetermineUniqueOutputFieldCount();
+                
+                
+                networkGenerate(input, output);
 
             }
         }
@@ -129,8 +133,8 @@ namespace SNP1
 
             norm.Normalize(targetFile);
 
-            //analyst.Save(new FileInfo("stats.ega"));
-            //analyst.Load(new FileInfo("stats.ega"));
+            analyst.Save(new FileInfo("stats.ega"));
+            analyst.Load(new FileInfo("stats.ega"));
 
             return ega;
         }
