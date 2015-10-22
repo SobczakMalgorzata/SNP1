@@ -112,15 +112,12 @@ namespace SNP1
                 int input = analyst.DetermineUniqueInputFieldCount();
                 int output = analyst.DetermineUniqueOutputFieldCount();
                 
-                
                 networkGenerate(input, output);
 
             }
         }
-        private string dataNormalization(string f1, string f2)
+        private void dataNormalization(string f1, string f2)
         {
-            string ega;
-            ega = f1;
             var sourceFile = new FileInfo(f1);
             var targetFile = new FileInfo(f2);
             var analyst = new EncogAnalyst();
@@ -136,7 +133,6 @@ namespace SNP1
             analyst.Save(new FileInfo("stats.ega"));
             analyst.Load(new FileInfo("stats.ega"));
 
-            return ega;
         }
     }
 }
