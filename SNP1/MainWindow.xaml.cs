@@ -127,7 +127,6 @@ namespace SNP1
             norm.Analyze(sourceFile, true, CSVFormat.English, analyst);
 
             norm.ProduceOutputHeaders = true;
-
             norm.Normalize(targetFile);
 
             analyst.Save(new FileInfo("stats.ega"));
